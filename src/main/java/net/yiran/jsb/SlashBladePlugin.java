@@ -1,5 +1,6 @@
 package net.yiran.jsb;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IAdvancedRegistration;
@@ -33,8 +34,8 @@ public class SlashBladePlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        registration.addRecipes(SARecipeCategory.SA_TYPE, SlashArtsRegistry.REGISTRY.get().getValues().stream().toList());
-        registration.addRecipes(SERecipeCategory.SE_TYPE, SpecialEffectsRegistry.REGISTRY.get().getValues().stream().toList());
+        registration.addRecipes(SARecipeCategory.SA_TYPE, SlashArtsRegistry.REGISTRY.get().getValues().stream().collect(ObjectArrayList.toList()));
+        registration.addRecipes(SERecipeCategory.SE_TYPE, SpecialEffectsRegistry.REGISTRY.get().getValues().stream().collect(ObjectArrayList.toList()));
         Stream<EntityDropEntry> drops = Util.getEntityDropEntryRegistry().stream();
         if (Config.FILTER_DROP.get()) {
             drops = drops.filter(entityDropEntry -> {
@@ -42,8 +43,8 @@ public class SlashBladePlugin implements IModPlugin {
                 return Util.getSlashBladeDefinitionRegistry().containsKey(entityDropEntry.bladeName());
             });
         }
-        registration.addRecipes(EntityDropEntryRecipeCategory.DROP_TYPE, drops.toList());
-        registration.addRecipes(SpecialBladeDescRecipeCategory.DESC_TYPE, SpecialBladeDescListener.DESC_DATA.stream().filter(desc -> Util.getSlashBladeDefinitionRegistry().containsKey(desc.bladeName())).toList());
+        registration.addRecipes(EntityDropEntryRecipeCategory.DROP_TYPE, drops.collect(ObjectArrayList.toList()));
+        registration.addRecipes(SpecialBladeDescRecipeCategory.DESC_TYPE, SpecialBladeDescListener.DESC_DATA.stream().filter(desc -> Util.getSlashBladeDefinitionRegistry().containsKey(desc.bladeName())).collect(ObjectArrayList.toList()));
     }
 
     @Override

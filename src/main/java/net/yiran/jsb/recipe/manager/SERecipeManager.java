@@ -1,5 +1,7 @@
 package net.yiran.jsb.recipe.manager;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectLists;
 import mezz.jei.api.ingredients.ITypedIngredient;
 import mezz.jei.api.recipe.advanced.ISimpleRecipeManagerPlugin;
 import mods.flammpfeil.slashblade.item.ItemSlashBlade;
@@ -24,16 +26,19 @@ public class SERecipeManager implements ISimpleRecipeManagerPlugin<SpecialEffect
 
     @Override
     public List<SpecialEffect> getRecipesForInput(ITypedIngredient<?> iTypedIngredient) {
-        return iTypedIngredient.getItemStack().get().getCapability(ItemSlashBlade.BLADESTATE).orElse(null).getSpecialEffects().stream().map(SpecialEffectsRegistry.REGISTRY.get()::getValue).toList();
+        return iTypedIngredient.getItemStack().get().getCapability(ItemSlashBlade.BLADESTATE).orElse(null)
+                .getSpecialEffects().stream()
+                .map(SpecialEffectsRegistry.REGISTRY.get()::getValue)
+                .collect(ObjectArrayList.toList());
     }
 
     @Override
     public List<SpecialEffect> getRecipesForOutput(ITypedIngredient<?> iTypedIngredient) {
-        return List.of();
+        return ObjectLists.emptyList();
     }
 
     @Override
     public List<SpecialEffect> getAllRecipes() {
-        return SpecialEffectsRegistry.REGISTRY.get().getValues().stream().toList();
+        return ObjectLists.emptyList();
     }
 }

@@ -62,7 +62,7 @@ public class SERecipeCategory implements IRecipeCategory<SpecialEffect> {
                 .filter(stack -> stack.getCapability(ItemSlashBlade.BLADESTATE).map(state -> state.getSpecialEffects().contains(SpecialEffectsRegistry.REGISTRY.get().getKey(specialEffect))).orElse(false))
                 .toList();
         if (!items.isEmpty()) {
-            builder.addInputSlot(5, 2)
+            builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 5, 2)
                     .addItemStacks(items);
         }
     }

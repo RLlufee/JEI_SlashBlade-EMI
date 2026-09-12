@@ -61,7 +61,7 @@ public class SARecipeCategory implements IRecipeCategory<SlashArts> {
                 .filter(stack -> stack.getCapability(ItemSlashBlade.BLADESTATE).map(state -> state.getSlashArts().equals(slashArts)).orElse(false))
                 .toList();
         if (!items.isEmpty()) {
-            builder.addInputSlot(5, 2)
+            builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 5, 2)
                     .setStandardSlotBackground()
                     .addItemStacks(items);
         }

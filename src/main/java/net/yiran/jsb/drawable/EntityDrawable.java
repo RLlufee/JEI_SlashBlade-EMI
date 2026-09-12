@@ -1,5 +1,6 @@
 package net.yiran.jsb.drawable;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import mezz.jei.api.gui.drawable.IDrawable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -10,11 +11,10 @@ import net.yiran.jsb.Config;
 import net.yiran.jsb.data.ShowEntityListener;
 import org.joml.Quaternionf;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class EntityDrawable implements IDrawable {
-    public static Map<EntityType<?>, LivingEntity> ENTITY_CACHE = new HashMap<>();
+    public static Map<EntityType<?>, LivingEntity> ENTITY_CACHE = new Object2ObjectOpenHashMap<>();
     public EntityType<?> entityType;
     public LivingEntity renderEntity;
     public float renderTicks = 0;
