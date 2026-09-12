@@ -9,6 +9,7 @@ import mods.flammpfeil.slashblade.registry.SlashBladeItems;
 import mods.flammpfeil.slashblade.slasharts.SlashArts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -21,6 +22,17 @@ import java.util.List;
 public class SAIngredient implements IIngredientType<SlashArts>, IIngredientHelper<SlashArts>, IIngredientRenderer<SlashArts> {
     public static SAIngredient INSTANCE = new SAIngredient();
     public static Lazy<ItemStack> renderItem = Lazy.of(() -> SlashBladeItems.PROUDSOUL_SPHERE.get().getDefaultInstance());
+
+    @Override
+    public ItemStack getCheatItemStack(SlashArts ingredient) {
+        ItemStack stack = SlashBladeItems.PROUDSOUL_SPHERE.get().getDefaultInstance();
+
+        CompoundTag tag = new CompoundTag();
+        tag.putString("SpecialAttackType", SlashArtsRegistry.REGISTRY.get().getKey(ingredient).toString());
+        stack.setTag(tag);
+
+        return stack;
+    }
 
     @Override
     public IIngredientType<SlashArts> getIngredientType() {
